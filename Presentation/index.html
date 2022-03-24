@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+# IOStreams
+      
+**IOstreams** can be used for a wide variety of data manipulations thanks to the following features:
+
+- A 'stream' is internally nothing but a series of characters. 
+- Streams work with built-in data types, and you can make user-defined types work with streams by overloading the insertion operator (<<) to put objects into streams, and the extraction operator (>>) to read objects from streams.
+- The stream library's unified approach makes it very friendly to use. Using a consistent interface for outputting to the screen and sending files over a network makes life easier.
+
+---
+
+#Streams
+      
+Streams are serial interfaces to storage, buffers files, or any other storage medium. The difference between storage media is intentionally hidden by the interface; you may not even know what kind of storage you're working with but the interface is exactly the same.
+
+
+---
+
+# Error handling with IO streams
+
+<br>
+Handling errors gracefully is important for building a robust system. The 'errors' or 'signals' (e.g., reaching the end of the file) in this case generally occur when a stream encounters something it didn't expect.
+
+<br><br><br>      
+```cpp
+ifstream file( "test.txt" );
+* if ( ! file )
+{
+        cout << "An error occurred opening the file" << endl;
+}
+```
+      
+---
+
+# File I/O
+
+File I/O is done by manually declaring objects of the ifstream, ofstream or fstream classes (from the <fstream> header) and then associating a file with the stream by using the stream's open method with the file's name as an argument.
+
+```cpp
+#include <iostream>
+#include <fstream>
+ 
+using namespace std;
+ 
+int main()
+{
+*        ofstream ofs("a.txt",ios::app);
+        if(ofs.good())
+        {
+                ofs<<"Hello a.txt, I'm appending this on you.";
+        }
+        return 0;
+}
+```
+---
+#StringStreams
+A  **stringstream** associates a string object with a stream allowing you to read from the string as if it were a stream (like cin). To use stringstream, we need to include _**sstream**_ header file. The stringstream class is extremely useful in parsing input. 
+<br><br>
+```cpp
+#include <iostream>
+#include <sstream>
+ 
+using namespace std;
+ 
+int main()
+{
+        stringstream my_stream(ios::in|ios::out);
+        std::string dat("Hey, I have a double : 74.79 .");
+ 
+        my_stream.str(dat);
+        my_stream.seekg(-7,ios::end);
+ 
+       
+ 
+```      
+---
+
+#Basic methods
+
+1.  **clear()-** To clear the stream.
+2.  **str()-** To get and set string object whose content is present in the stream. 
+3.  **operator <<-** Add a string to the stringstream object. 
+4.  **operator >>-** Read something from the stringstream object.
+
+
+---
+
+      
+<iframe frameborder="0" width="100%" height="100%" src="https://replit.com/@williamsmith/StreamsExamples?embed=true"></iframe>
+
+      
+
+
+      
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({highlightLines: true});
+    </script>
+  </body>
+</html>
